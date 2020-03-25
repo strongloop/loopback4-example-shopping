@@ -8,6 +8,7 @@ import {PasswordHasher} from './services/hash.password.bcryptjs';
 import {TokenService, UserService} from '@loopback/authentication';
 import {User} from './models';
 import {Credentials} from './repositories';
+import {RefreshtokenService} from './services/refreshtoken.service';
 
 export namespace TokenServiceConstants {
   export const TOKEN_SECRET_VALUE = 'myjwts3cr3t';
@@ -36,5 +37,17 @@ export namespace PasswordHasherBindings {
 export namespace UserServiceBindings {
   export const USER_SERVICE = BindingKey.create<UserService<User, Credentials>>(
     'services.user.service',
+  );
+}
+
+export namespace RefreshtokenServiceBindings {
+  export const REFRESHTOKEN_ETERNAL_ALLOWED = BindingKey.create<boolean>(
+    'services.refreshtoken.eternal_allowed',
+  );
+  export const REFRESHTOKEN_EXPIRES_IN = BindingKey.create<number>(
+    'services.refreshtoken.expires_in',
+  );
+  export const REFRESHTOKEN_SERVICE = BindingKey.create<RefreshtokenService>(
+    'services.refreshtoken.service',
   );
 }
