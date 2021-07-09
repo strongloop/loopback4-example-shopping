@@ -31,14 +31,15 @@ import {
   OrderRepository,
   ProductRepository,
   ShoppingCartRepository,
+  UserCredentialsRepository,
   UserRepository,
 } from './repositories';
 import {ShoppySequence} from './sequence';
 import {
-  UserManagementService,
   BcryptHasher,
-  SecuritySpecEnhancer,
   JWTService,
+  SecuritySpecEnhancer,
+  UserManagementService,
 } from './services';
 import YAML = require('yaml');
 import {ErrorHandlerMiddlewareProvider} from './middlewares';
@@ -147,6 +148,10 @@ export class ShoppingApplication extends BootMixin(
     // Pre-populate users
     const userRepo = await this.getRepository(UserRepository);
     await userRepo.deleteAll();
+    const userCredentialsRepo = await this.getRepository(
+      UserCredentialsRepository,
+    );
+    await userCredentialsRepo.deleteAll();
     const usersDir = path.join(__dirname, '../fixtures/users');
     const userFiles = fs.readdirSync(usersDir);
 
